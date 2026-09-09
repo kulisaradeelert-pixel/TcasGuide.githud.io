@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCAS Guide & University Quiz 🌸</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600&family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-pink: #ff8fa3;
+            --soft-pink: #fff0f3;
+            --accent-pink: #ff4d6d;
+            --dark-pink: #c9184a;
+            --text-color: #4a4a4a;
+            --bg-white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Prompt', sans-serif;
+        }
+
+        body {
+            background-color: var(--soft-pink);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        /* Banner Header */
+        .banner {
+            background: linear-gradient(135deg, #ffb3c1 0%, #ff758f 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: 0 10px 20px rgba(255, 117, 143, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner h1 {
+            font-family: 'Mitr', sans-serif;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .banner p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 40px 0 20px;
+            font-family: 'Mitr', sans-serif;
+            color: var(--dark-pink);
+            font-size: 1.8rem;
+        }
+
+        /* TCAS Rounds Navigation */
+        .rounds-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .round-btn {
+            background: var(--bg-white);
+            border: 2px solid var(--primary-pink);
+            padding: 15px;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: var(--dark-pink);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .round-btn:hover, .round-btn.active {
+            background: var(--accent-pink);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 77, 109, 0.3);
+        }
+
+        /* Round Details Card */
+        .round-detail-card {
+            background: var(--bg-white);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .round-detail-card.active {
+            display: block;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .info-box {
+            background: #fff9fa;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid var(--accent-pink);
+        }
+
+        .info-box h4 {
+            color: var(--dark-pink);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        /* University Tabs Section */
+        .uni-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .uni-tab-btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.3s;
+            background: #e0e0e0;
+            color: #555;
+        }
+
+        .uni-tab-content {
+            display: none;
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            animation: fadeIn 0.4s ease;
+        }
+
+        .uni-tab-content.active {
+            display: block;
+        }
+
+        .uni-header-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 15px;
+            border-radius: 15px;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .uni-header-card img {
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 50%;
+            padding: 5px;
+            object-fit: contain;
+        }
+
+        /* Quiz Section */
+        .quiz-card {
+            background: var(--bg-white);
+            border-radius: 25px;
+            padding: 35px;
+            box-shadow: 0 10px 25px rgba(255, 143, 163, 0.15);
+            text-align: center;
+            border: 2px dashed var(--primary-pink);
+            margin-top: 40px;
+        }
+
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            margin: 10px 0;
+            background: var(--soft-pink);
+            border: 1px solid var(--primary-pink);
+            border-radius: 15px;
+            cursor: pointer;
+            text-align: left;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+
+        .quiz-option:hover {
+            background: var(--primary-pink);
+            color: white;
+        }
+
+        /* Quiz Result */
+        #quiz-result {
+            display: none;
+            margin-top: 20px;
+            padding: 25px;
+            border-radius: 20px;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Banner Header -->
+    <div class="banner">
+        <h1>✨ TCAS Guide & Uni Quiz ✨</h1>
+        <p>คู่มือเตรียมตัวสอบเข้ามหาวิทยาลัย แบบน่ารัก ใช้งานง่าย ได้ข้อมูลครบถ้วน!</p>
+    </div>
+
+    <div class="container">
+
+        <!-- 1. TCAS Rounds Section -->
+        <h2 class="section-title"><i class="fa-solid fa-calendar-days"></i> รายละเอียดการสมัคร TCAS แต่ละรอบ</h2>
+        
+        <div class="rounds-grid">
+            <div class="round-btn active" onclick="showRound('round1')">รอบที่ 1<br><small>Portfolio</small></div>
+            <div class="round-btn" onclick="showRound('round2')">รอบที่ 2<br><small>Quota</small></div>
+            <div class="round-btn" onclick="showRound('round3')">รอบที่ 3<br><small>Admission</small></div>
+            <div class="round-btn" onclick="showRound('round4')">รอบที่ 4<br><small>Direct Admission</small></div>
+        </div>
+
+        <!-- Round 1 -->
+        <div id="round1" class="round-detail-card active">
+            <h3>📂 รอบที่ 1 : Portfolio (แฟ้มสะสมผลงาน)</h3>
+            <p>เน้นพิจารณาจากผลงาน ความสามารถพิเศษ และเกรดเฉลี่ย (GPAX) ไม่ต้องใช้คะแนนสอบกลาง</p>
+            <div class="info-grid">
+                <div class="info-box">
+                    <h4><i class="fa-solid fa-list-check"></i> วิธีสมัคร</h4>
+                    <p>สมัครโดยตรงผ่านเว็บไซต์ของแต่ละมหาวิทยาลัย พร้อมอัปโหลดไฟล์ Portfolio ตามเงื่อนไข</p>
+                </div>
+                <div class="info-box">
+                    <h4><i class="fa-regular fa-clock"></i> ช่วงวันรับสมัคร</h4>
+                    <p>กุมภาพันธ์ - มกราคม (ขึ้นอยู่กับแต่ละมหาวิทยาลัย)</p>
+                </div>
+                <div class="info-box">
+                    <h4><i class="fa-solid fa-pen-to-square"></i> การสัมภาษณ์/สอบ</h4>
+                    <p>ยื่นพอร์ต ➔ ประกาศรายชื่อ ➔ สอบสัมภาษณ์ (ถ้ามี)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Round 2 -->
+        <div id="round2" class="round-detail-card">
+            <h3>📍 รอบที่ 2 : Quota (โควตา)</h3>
+            <p>สำหรับนักเรียนในพื้นที่ โควตาโรงเรียน หรือความสามารถพิเศษเฉพาะทาง อาจใช้คะแนน TGAT/TPAT/A-Level</p>
+            <div class="info-grid">
+                <div class="info-box">
+                    <h4><i class="fa-solid fa-list-check"></i> วิธีสมัคร</h4>
+                    <p>สมัครผ่านเว็บมหาวิทยาลัย หรือผ่านการเสนอชื่อจากทางโรงเรียน</p>
+                </div>
+                <div class="info-box">
+                    <h4><i class="fa-regular fa-clock"></i> ช่วงวันรับสมัคร</h4>
+                    <p>กุมภาพันธ์ - เมษายน</p>
+                </div>
+                <div class="info-box">
+                    <h4><i class="fa-solid fa-pen-to-square"></i> การสอบที่ใช้</h4>
+                    <p>คะแนน TGAT / TPAT / A-Level หรือข้อเขียนของมหาลัย</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Round 3 -->
+        <div id="round3" class="round-detail-card">
+            <h3>🎯 รอบที่ 3 : Admission (รอบรับร่วมกัน)</h3>
+            <p>รอบใหญ่ที่สุด! ใช้คะแนนสอบกลาง (TGAT/TPAT, A-Level) ยื่นเลือกอันดับได้สูงสุด 10 อันดับ</p>
+            <div class="info-grid">
+                <div class="info-box">
+                    <h4><i class="fa-solid fa-list-check"></i> วิธีสมัคร</h4>
+                    <p>สมัครผ่านระบบ Central ของ mytcas.com จัดอันดับ 1-10</p>
+                </div>
+                <div class="info-box">
+                    <h4><i class="fa-regular fa-clock"></i> ช่วงวันรับสมัคร</h4>
+                    <p>พฤษภาคม (ประมาณต้นถึงกลางเดือน)</p>
+                </div>
+                <div class="info-box">
+                    <h4><i class="fa-solid fa-pen-to-square"></i> วันสอบสำคัญ</h4>
+                    <p>TGAT/TPAT: ธันวาคม | A-Level: มีนาคม</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Round 4 -->
+        <div id="round4" class="round-detail-card">
+            <h3>⚡ รอบที่ 4 : Direct Admission (รับตรงอิสระ)</h3>
+            <p>รอบเก็บตกสำหรับมหาวิทยาลัยที่ยังได้นิสิต/นักศึกษาไม่ครบตามจำนวน</p>
+            <div class="info-grid">
+                <div class="info-box">
+                    <h4><i class="fa-solid fa-list-check"></i> วิธีสมัคร</h4>
+                    <p>สมัครตรงกับทางเว็บไซต์มหาวิทยาลัยที่เปิดรับเกณฑ์เฉพาะ</p>
+                </div>
+                <div class="info-box">
+                    <h4><i class="fa-regular fa-clock"></i> ช่วงวันรับสมัคร</h4>
+                    <p>พฤษภาคม - มิถุนายน</p>
+                </div>
+                <div class="info-box">
+                    <h4><i class="fa-solid fa-pen-to-square"></i> เกณฑ์การคัดเลือก</h4>
+                    <p>ขึ้นอยู่กับสถาบัน (ใช้คะแนนสอบเดิม หรือ GPAX)</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 2. University Information Tabs -->
+        <h2 class="section-title"><i class="fa-solid fa-university"></i> รายละเอียดการรับสมัครรายมหาวิทยาลัย</h2>
+        
+        <div class="uni-tabs">
+            <button class="uni-tab-btn" style="background:#e03131; color:white;" onclick="showUni('chula')">จุฬาลงกรณ์ฯ</button>
+            <button class="uni-tab-btn" style="background:#2f9e44; color:white;" onclick="showUni('ku')">เกษตรศาสตร์</button>
+            <button class="uni-tab-btn" style="background:#0b7285; color:white;" onclick="showUni('mahidol')">มหิดล</button>
+            <button class="uni-tab-btn" style="background:#f59f00; color:white;" onclick="showUni('tu')">ธรรมศาสตร์</button>
+        </div>
+
+        <!-- Chula -->
+        <div id="chula" class="uni-tab-content">
+            <div class="uni-header-card" style="background-color: #de3163;">
+                <img src="https://upload.wikimedia.org/wikipedia/th/1/18/Chulalongkorn_University_Logo.svg" alt="CU Logo">
+                <div>
+                    <h2>จุฬาลงกรณ์มหาวิทยาลัย</h2>
+                    <p>สีประจำสถาบัน: สีชมพู 💖</p>
+                </div>
+            </div>
+            <p><b>การรับสมัคร:</b> เปิดรับครอบคลุมทั้ง 4 รอบ เน้นรอบ Portfolio (ความสามารถพิเศษ/โอลิมปิก) และรอบ Admission ใช้คะแนน TGAT/TPAT/A-Level สูงสุดในหลายคณะ</p>
+        </div>
+
+        <!-- KU -->
+        <div id="ku" class="uni-tab-content">
+            <div class="uni-header-card" style="background-color: #006633;">
+                <img src="https://upload.wikimedia.org/wikipedia/th/8/81/Kasetsart_University_Seal.svg" alt="KU Logo">
+                <div>
+                    <h2>มหาวิทยาลัยเกษตรศาสตร์</h2>
+                    <p>สีประจำสถาบัน: สีเขียวใบนนทรี 🌿</p>
+                </div>
+            </div>
+            <p><b>การรับสมัคร:</b> มีโครงการ KU-Admission และโควตาพิเศษมากมาย โดดเด่นในด้านการรับรอบ Portfolio ที่หลากหลายสาขาวิชา</p>
+        </div>
+
+        <!-- Mahidol -->
+        <div id="mahidol" class="uni-tab-content">
+            <div class="uni-header-card" style="background-color: #003366;">
+                <img src="https://upload.wikimedia.org/wikipedia/th/a/a2/Mahidol_U.png" alt="MU Logo">
+                <div>
+                    <h2>มหาวิทยาลัยมหิดล</h2>
+                    <p>สีประจำสถาบัน: สีน้ำเงินกรมท่า 💙</p>
+                </div>
+            </div>
+            <p><b>การรับสมัคร:</b> โดดเด่นด้านวิทยาศาสตร์ สุขภาพ และวิศวกรรมศาสตร์ มีการเปิดรับรอบ Portfolio เกณฑ์เฉพาะทาง และรอบ Quota ภาคกลาง/ภูมิภาค</p>
+        </div>
+
+        <!-- TU -->
+        <div id="tu" class="uni-tab-content">
+            <div class="uni-header-card" style="background-color: #c92a2a;">
+                <img src="https://upload.wikimedia.org/wikipedia/th/5/52/Thammasat_University_Logo.svg" alt="TU Logo">
+                <div>
+                    <h2>มหาวิทยาลัยธรรมศาสตร์</h2>
+                    <p>สีประจำสถาบัน: สีแดง-เหลือง ❤️💛</p>
+                </div>
+            </div>
+            <p><b>การรับสมัคร:</b> มีรอบ Portfolio โครงการขยายโอกาส และใช้ข้อเขียนวิชาเฉพาะในบางคณะ/สาขา นอกเหนือจากคะแนน TGAT/A-Level</p>
+        </div>
+
+
+        <!-- 3. Mini Quiz Section -->
+        <div class="quiz-card">
+            <h2>🎀 เกมทายใจ: คุณเหมาะกับมหาวิทยาลัยไหน? 🎀</h2>
+            <p style="margin-bottom: 20px; color: #777;">ตอบคำถามง่ายๆ เพื่อดูว่าไลฟ์สไตล์และสไตล์ของคุณตรงกับ ม. ไหนมากที่สุด!</p>
+
+            <div id="quiz-box">
+                <h3 id="question-text" style="color: var(--dark-pink); margin-bottom: 15px;">ข้อที่ 1: บรรยากาศแบบไหนที่คุณชอบที่สุด?</h3>
+                <div id="options-container">
+                    <button class="quiz-option" onclick="answerQuiz('A')">🌸 ใจกลางเมือง เดินทางสะดวก ติดห้างสรรพสินค้า</button>
+                    <button class="quiz-option" onclick="answerQuiz('B')">🌿 ธรรมชาติ ต้นไม้เยอะ ร่มรื่น อบอุ่นเหมือนบ้าน</button>
+                    <button class="quiz-option" onclick="answerQuiz('C')">🔬 ทันสมัย อุปกรณ์ครบครัน เน้นวิชาการและวิจัย</button>
+                    <button class="quiz-option" onclick="answerQuiz('D')">🏛️ อิสระ เสรีภาพ มีประวัติศาสตร์และความคลาสสิก</button>
+                </div>
+            </div>
+
+            <!-- Quiz Result Display -->
+            <div id="quiz-result">
+                <h3 style="margin-bottom: 10px;">🎉 มหาวิทยาลัยที่เหมาะกับคุณคือ... 🎉</h3>
+                <div id="result-header" class="uni-header-card">
+                    <img id="result-img" src="" alt="Uni Logo">
+                    <div>
+                        <h2 id="result-title"></h2>
+                        <p id="result-desc"></p>
+                    </div>
+                </div>
+                <button onclick="resetQuiz()" style="margin-top: 15px; padding: 10px 20px; background: var(--accent-pink); color: white; border: none; border-radius: 20px; cursor: pointer;">เล่นใหม่อีกครั้ง 🔄</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript Handling -->
+    <script>
+        // Switch TCAS Rounds
+        function showRound(roundId) {
+            document.querySelectorAll('.round-detail-card').forEach(card => card.classList.remove('active'));
+            document.querySelectorAll('.round-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(roundId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Switch University Tabs
+        function showUni(uniId) {
+            document.querySelectorAll('.uni-tab-content').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(uniId).classList.add('active');
+        }
+        // Initialize First Uni Tab
+        showUni('chula');
+
+        // Quiz Data & Logic
+        const uniData = {
+            'A': {
+                name: 'จุฬาลงกรณ์มหาวิทยาลัย',
+                color: '#de3163',
+                img: 'https://upload.wikimedia.org/wikipedia/th/1/18/Chulalongkorn_University_Logo.svg',
+                desc: 'คุณชอบความคล่องตัว สไตล์คนเมือง รสนิยมดี และชอบสภาพแวดล้อมที่ผลักดันให้เติบโต!'
+            },
+            'B': {
+                name: 'มหาวิทยาลัยเกษตรศาสตร์',
+                color: '#006633',
+                img: 'https://upload.wikimedia.org/wikipedia/th/8/81/Kasetsart_University_Seal.svg',
+                desc: 'คุณเป็นคนลุยๆ สบายๆ ชอบบรรยากาศเป็นกันเอง อบอุ่น และแวดล้อมด้วยธรรมชาติ!'
+            },
+            'C': {
+                name: 'มหาวิทยาลัยมหิดล',
+                color: '#003366',
+                img: 'https://upload.wikimedia.org/wikipedia/th/a/a2/Mahidol_U.png',
+                desc: 'คุณเป็นคนมุ่งมั่น ชอบการเรียนรู้ นวัตกรรม และความก้าวหน้าทางวิชาการอย่างแท้จริง!'
+            },
+            'D': {
+                name: 'มหาวิทยาลัยธรรมศาสตร์',
+                color: '#c92a2a',
+                img: 'https://upload.wikimedia.org/wikipedia/th/5/52/Thammasat_University_Logo.svg',
+                desc: 'คุณรักอิสระ มีความคิดเป็นของตัวเอง กล้าคิดกล้าทำ และใส่ใจสิ่งรอบข้าง!'
+            }
+        };
+
+        function answerQuiz(choice) {
+            const result = uniData[choice];
+            
+            document.getElementById('quiz-box').style.display = 'none';
+            const resultDiv = document.getElementById('quiz-result');
+            const resultHeader = document.getElementById('result-header');
+            
+            resultHeader.style.backgroundColor = result.color;
+            document.getElementById('result-img').src = result.img;
+            document.getElementById('result-title').innerText = result.name;
+            document.getElementById('result-desc').innerText = result.desc;
+            
+            resultDiv.style.display = 'block';
+        }
+
+        function resetQuiz() {
+            document.getElementById('quiz-box').style.display = 'block';
+            document.getElementById('quiz-result').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
